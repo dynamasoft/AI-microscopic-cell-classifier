@@ -42,16 +42,7 @@ def load_data():
     images = np.array(images)
     labels = np.array(labels)
 
-    # Split into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(
-        images, labels, test_size=0.2, random_state=42
-    )
-
-    print(
-        f"Dataset Loaded: {len(X_train)} training images, {len(X_test)} testing images"
-    )
-
-    return X_train, X_test, y_train, y_test
+    return images, labels
 
 
 # Data Augmentation
