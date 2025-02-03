@@ -4,9 +4,9 @@ import xml.etree.ElementTree as ET
 import pandas as pd
 
 # File paths
-image_path = r".\data\dataset-master\jpegimages\BloodImage_00000.jpg"
-xml_path = r".\data\dataset-master\annotations\BloodImage_00000.xml"
-csv_path = r".\data\dataset-master\labels.csv"
+image_path = r".\data\images\BloodImage_00000.jpg"
+xml_path = r".\data\annotations\BloodImage_00000.xml"
+csv_path = r".\data\labels.csv"
 
 # Load image
 image = cv2.imread(image_path)

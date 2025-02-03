@@ -20,12 +20,13 @@ def load_data():
 
     for index, row in df.iterrows():
         image_name = f"BloodImage_{int(row['Image']):05d}.jpg"  # Convert number to 5-digit format
-        label = row["Category"]  # Ensure column exists in CSV
         image_path = os.path.join(IMAGE_DIR, image_name)
 
-        # image_name = row["Image"]  # Ensure column exists in CSV
         # label = row["Category"]  # Ensure column exists in CSV
-        # image_path = os.path.join(IMAGE_DIR, image_name)
+        # Create a mapping of categories to numbers
+        categories = df["Category"].unique()
+        category_to_num = {cat: i for i, cat in enumerate(categories)}
+        label = category_to_num[row["Category"]]
 
         # Load and preprocess the image
         img = cv2.imread(image_path)
@@ -56,8 +57,22 @@ def augment_data(X_train, y_train):
     return datagen.flow(X_train, y_train, batch_size=32)
 
 
+def print_categories():
+    df = pd.read_csv(LABELS_FILE)
+    unique_categories = df["Category"].unique()
+    print("Unique categories found:", unique_categories)
+    print("Number of unique categories:", len(unique_categories))
+
+    # Create a mapping of categories to numbers starting from 0
+    category_to_num = {cat: i for i, cat in enumerate(sorted(unique_categories))}
+    print("Category mapping:", category_to_num)
+
+
 # Main function to preprocess data
 def preprocess_and_split_data():
+
+    print_categories()
+
     X, y = load_data()
 
     X_train, X_test, y_train, y_test = train_test_split(

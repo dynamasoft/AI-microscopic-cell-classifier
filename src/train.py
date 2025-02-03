@@ -17,7 +17,7 @@ def create_model():
             Flatten(),
             Dense(128, activation="relu"),
             Dropout(0.5),
-            Dense(3, activation="softmax"),  # Adjust based on number of classes
+            Dense(6, activation="softmax"),  # Adjust based on number of classes
         ]
     )
     model.compile(
@@ -32,14 +32,13 @@ def train_model():
     model = create_model()
 
     # Use real dataset from data_preprocessing.py
-    dataset_path = "data/dataset-master"  # Modify if needed
-    train_data, X_val, y_val = preprocess_and_split_data(dataset_path)
+    train_data, X_val, y_val = preprocess_and_split_data()
 
     print("Starting model training...")  # Debugging line
     model.fit(train_data, epochs=10, validation_data=(X_val, y_val))
 
     print("Saving model...")  # Debugging line
-    model.save("models/cell_classifier.h5")
+    model.save("models/cell_classifier.keras")
 
 
 if __name__ == "__main__":
